@@ -1,20 +1,16 @@
-import express from 'express';
-import fetch from 'node-fetch';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
 
+// Прокси для ElevenLabs
 app.get('/widget', async (req, res) => {
-  try {
-    const url = 'https://api.us.elevenlabs.io/v1/convai/agents/agent_01jx78z9m8ea4tkmzw0z6q8r4f/widget';
-    const response = await fetch(url);
-    const data = await response.json();
-    res.json(data);
-  } catch (e) {
-    res.status(500).json({ error: 'Proxy failed', details: e.message });
-  }
+  res.send('🎯 Прокси работает! Можешь вставлять эту ссылку в <script src="...">');
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Proxy listening on port ${port}`));
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
